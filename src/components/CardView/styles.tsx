@@ -9,10 +9,16 @@ export const styles = StyleSheet.create({
   carDetailsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start'
   },
   carName: {
     color: '#fff',
+    
+    lineHeight: 30,
+    height: 60,
+    flexShrink: 0,
+    textAlign: 'center',
+
     fontWeight: 'bold',
     fontSize: 24,
     letterSpacing: 1.3,
@@ -23,14 +29,15 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     fontStyle: 'italic'
   },
-  carImage: {
-    flex: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
-    
+  carImageContainer: {
     width: '100%',
-    height: '15%',
-    marginVertical: 175,
+    height: 400,
+    flexShrink: 0,
+  },
+  carImage: {    
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
   },
   priceControlsContainer: {
     flexDirection: 'row',

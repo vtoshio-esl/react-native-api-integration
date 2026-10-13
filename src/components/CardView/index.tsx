@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   View, 
   Text, 
@@ -8,36 +8,55 @@ import {
 import { AntDesign } from '@react-native-vector-icons/ant-design';
 
 import { CAR_ASSETS_BASE_URL } from '../../constants/car';
+import { CarModel } from '../../models/CarModel';
 
 import { styles } from './styles';
 import { Divider } from '../Divider';
 import { BuyButton } from '../BuyButton';
+import { loadCarData, handlePreviousItem, handleNextItem } from './actions';
 
 export default function CardView() {
+  const [currentCarData, setCurrentCarData] = useState<CarModel | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      await loadCarData(1, setCurrentCarData);
+    })();
+  }, [])
+
+  const renderCarName = () => (
+    <Text style={styles.carName}>
+      { currentCarData?.carName }
+    </Text>
+  )
+
   const renderCarDetails = () => (
     <View style={styles.carDetailsContainer}>
-      <Text style={styles.carName}>
-        Revuelto SV
-      </Text>
       <Text style={styles.carBrand}>
         Lamborghini
+        { (currentCarData?.releaseYear && currentCarData?.releaseYear < 1990) ? ' (Classic)' : ''}
+      </Text>
+      <Text style={styles.carBrand}>
+        { currentCarData?.releaseYear }
       </Text>
     </View>
   )
 
   const renderCarImage = () => (
-    <Image 
-      source={{ 
-        uri: `${CAR_ASSETS_BASE_URL}/1.png` 
-      }} 
-      style={styles.carImage}  
-    />
+    <View style={styles.carImageContainer}>
+      <Image 
+        source={{ 
+          uri: `${CAR_ASSETS_BASE_URL}/${currentCarData?.id}.png` 
+        }} 
+        style={styles.carImage}  
+      />
+    </View>
   )
 
   const renderPriceControls = () => (
     <View style={styles.priceControlsContainer}>
       <TouchableOpacity 
-        onPress={() => {}}  
+        onPress={() => handlePreviousItem(currentCarData, setCurrentCarData)}  
         style={styles.buttonControl}
       >
         <AntDesign 
@@ -47,10 +66,10 @@ export default function CardView() {
         />
       </TouchableOpacity>
       <Text style={styles.priceLabel}>
-        Valor
+        { currentCarData?.price }
       </Text>
       <TouchableOpacity 
-        onPress={() => {}}  
+        onPress={() => handleNextItem(currentCarData, setCurrentCarData)}  
         style={styles.buttonControl}
       >
         <AntDesign 
@@ -66,6 +85,7 @@ export default function CardView() {
     <View style={styles.container}>
       <Divider />
 
+      { renderCarName() }
       { renderCarImage() }
       
       <Divider />
