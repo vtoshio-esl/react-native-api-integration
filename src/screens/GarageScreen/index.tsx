@@ -11,9 +11,7 @@ export function GarageScreen() {
       <View style={styles.logoContainer}>
         <Image source={Logo} style={styles.imageLogo}/>
       </View>
-      <View style={styles.cameraBox}>
-        <CardView />
-      </View>
+      <CardView />
     </SafeAreaView>
   );
 }

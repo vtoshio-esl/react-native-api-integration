@@ -14,17 +14,11 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     height: 60,
-    marginHorizontal: 10
+    marginVertical: 10
   },
   imageLogo: {
     flex: 1,
     width: '35%',
     resizeMode: 'contain'
-  },
-  cameraBox: {
-    position: 'relative',
-    width: 350,
-    height: '90%',
-    overflow: 'hidden'
   }
 })
